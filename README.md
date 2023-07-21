@@ -84,7 +84,7 @@ with a development environment is to use docker.  Simply:
 
 These docker images run an SSH server.  We recommend starting the image like so:
 
-    $ sudo docker run --gpus all -d -P --name stoke stanfordpl/stoke:ARCH
+    $ sudo docker run --gpus all -d -P --name stoke stanfordpl/stoke
 
 then one can SSH as follows:
 
@@ -94,7 +94,18 @@ then one can SSH as follows:
     $ ssh -pXXXXX stoke@127.0.0.1
     (password is 'stoke')
 
+```
+# locale setting
+sudo locale-gen en_US.UTF-8
 
+# upgrade Ubuntu version
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install ubuntu-release-upgrader-core -y
+
+# this takes a while
+sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+```
 ```
 ./configure.sh
 make
