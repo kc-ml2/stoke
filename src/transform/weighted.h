@@ -35,6 +35,17 @@ public:
     return "Weighted";
   }
 
+  TransformInfo act(Cfg& cfg, int action) {
+    size_t pool_index = action % transform_pool_.size();
+    size_t tform_index = transform_pool_[action];
+    Transform* tr = transforms_[tform_index];
+    auto ti = (*tr)(cfg);
+    ti.move_type = tform_index;
+    
+    return ti;
+  }
+
+
   TransformInfo operator()(Cfg& cfg) {
     size_t pool_index = gen_() % transform_pool_.size();
     size_t tform_index = transform_pool_[pool_index];

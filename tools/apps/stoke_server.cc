@@ -18,6 +18,10 @@
 #include "src/search/statistics_callback.h"
 #include "src/search/failed_verification_action.h"
 #include "src/search/postprocessing.h"
+// #include "src/cereal-1.3.2/"
+// #include "src/cereal/types/unordered_map.hpp"
+// #include "src/cereal/types/memory.hpp"
+// #include "src/cereal/archives/binary.hpp"
 
 #include "tools/args/search.inc"
 #include "tools/args/target.inc"
@@ -54,6 +58,19 @@ using namespace std;
 using namespace stoke;
 using namespace chrono;
 
+auto code_to_string (x64asm::Code code) {
+    stringstream ss;
+    ss << code;
+    auto res = regex_replace(ss.str(), regex("\n"), "\\n");
+    return res;
+};
+
+// string state_to_string (stoke::output_iterator io_pairs) {
+//     stringstream ss;
+//     ss << io_pairs;
+//     auto res = regex_replace(ss.str(), regex("\n"), "\\n"))
+//     return res;
+// };
 
 auto& out = ValueArg<string>::create("out")
             .alternate("o")
@@ -219,11 +236,26 @@ int main(int argc, char **argv)
             std::getline(input, message);
             int action = stoi(message);
             std::cout << "Received message from client: " << message << std::endl;
-            ti = (*search.transform_)(state.current, action);
+            
+            ti = (*search.transform_).act(state.current, action);
+            std::string code = code_to_string(state.current.get_code());
+
+
+            
+            // std::string cpu_state = state_to_string(perf_sb.get_output(perf_sb.num_inputs()));
+            // auto output_it = perf_sb.get_output(perf_sb.num_inputs());
+            // for (auto it = output_it->begin(); it != output_it->end(); ++it) {
+            // auto it = perf_sb.get_output(1);
+            // auto data = next(it);
+            
+            // }
+            // std::string code = code_to_string(state.best_yet.get_code());
+            
             // search.act(target, fxn, init_arg, state, aux_fxns, action);
             // Send response back to the client
             std::string response = "Server says: " + message + "\n";
-            boost::asio::write(socket, boost::asio::buffer(response));
+            boost::asio::write(socket, boost::asio::buffer(code));
+            // boost::asio::write(socket, boost::asio::buffer(code));
         }
         else
         {
@@ -233,4 +265,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-

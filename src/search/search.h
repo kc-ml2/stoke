@@ -87,7 +87,7 @@ public:
   /** Returns the statistics collected for the search up to now (or the full statistics for the whole run, if search terminated). */
   StatisticsCallbackData get_statistics() const;
 
-private:
+// private:
   /** Random generator. */
   std::default_random_engine gen_;
   /** For sampling moves. */

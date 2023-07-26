@@ -42,6 +42,8 @@ public:
   virtual void set_seed(std::default_random_engine::result_type seed) {
     gen_.seed(seed);
   }
+  
+  virtual TransformInfo act(Cfg& cfg, int action) = 0;
 
   virtual ~Transform() {}
 

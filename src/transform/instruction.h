@@ -39,6 +39,8 @@ public:
       originally passed to operator() */
   void undo(Cfg& cfg, const TransformInfo& transform_info) const;
 
+  TransformInfo act(Cfg& cfg, int action) {}
+  
 protected:
 
 private:

@@ -107,6 +107,7 @@ void Search::run(const Cfg& target, CostFunction& fxn, Init init, SearchState& s
 
 
     ti = (*transform_)(state.current);
+    
     move_statistics[ti.move_type].num_proposed++;
     if (!ti.success) {
       continue;
